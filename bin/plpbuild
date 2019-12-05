@@ -79,6 +79,13 @@ for name, cmd in commands.items():
 
 
 
+def def_threads():
+    try:
+        cnt=os.cpu_count()
+        return cnt if cnt != None else 1
+    except:
+        return 1
+
 
 parser = argparse.ArgumentParser(
   description='Run a testset',
@@ -88,7 +95,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('command', metavar='CMD', type=str, nargs='*',
                    help='a command to be executed')
 
-parser.add_argument("--threads", dest="threads", default=1, type=int, help="Specify the number of worker threads")
+parser.add_argument("--threads", dest="threads", default=def_threads(), type=int, help="Specify the number of worker threads")
 parser.add_argument("--package", dest="packages", action="append", default=None, help="Specifies active packages")
 parser.add_argument("--module", dest="modules", action="append", default=[], help="Specifies active modules")
 parser.add_argument("--group", dest="groups", action="append", default=[], help="Specifies active groups")
