@@ -735,6 +735,9 @@ class Arch(object):
     if toolchain_version is not None and toolchain_version >= 3:
       c_flags += ' -D__riscv__'
       name = 'rv32' + name.lower()
+      abi = core_config.get('abi')
+      if abi is not None:
+        c_flags += ' -mabi=%s' % abi
 
     self.arch_flags = ''  
     self.objd_flags = ''
